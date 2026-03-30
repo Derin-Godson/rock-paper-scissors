@@ -1,0 +1,130 @@
+<%@ page session="true" %>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rock Paper Scissors</title>
+
+        <style>
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+
+            @keyframes float {
+                0% {
+                    transform: translateY(0px);
+                }
+                50% {
+                    transform: translateY(-10px);
+                }
+                100% {
+                    transform: translateY(0px);
+                }
+            }
+
+            body {
+                font-family: Arial;
+                background-image: url("images/bg.jpg");
+                background-repeat: repeat;
+                text-align: center;
+                margin: 0;
+                animation: fadeIn 1s ease-in;
+            }
+
+            .container {
+                animation: float 3s ease-in-out infinite;
+                margin-top: 50px;
+                background: white;
+                padding: 30px;
+                border-radius: 10px;
+                width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+                box-shadow: 0px 0px 10px gray;
+            }
+
+            button {
+                padding: 12px 20px;
+                margin: 10px;
+                font-size: 16px;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: transform 0.2s, box-shadow 0.2s;
+            }
+
+            button:hover {
+                transform: scale(1.1);
+                box-shadow: 0px 0px 10px white;
+            }
+
+            button:active {
+                transform: scale(0.95);
+            }
+
+            .rock {
+                background: #ff7675;
+            }
+            .paper {
+                background: #74b9ff;
+            }
+            .scissors {
+                background: #55efc4;
+            }
+
+            .result {
+                margin-top: 20px;
+                font-weight: bold;
+                animation: fadeIn 0.5s ease-in;
+            }
+
+            .score {
+                margin-top: 15px;
+                padding: 10px;
+                background: #f1f2f6;
+                border-radius: 8px;
+            }
+        </style>
+
+        <script>
+            function handleClick(button) {
+                setTimeout(() => {
+                    let buttons = document.querySelectorAll("form[action='play'] button");
+                    buttons.forEach(btn => btn.disabled = true);
+                    button.innerText = "Choosing...";
+                }, 50);
+            }
+        </script>
+    </head>
+
+    <body>
+
+        <div class="container">
+            <h1>Rock Paper Scissors</h1>
+
+            <form action="play" method="post">
+                <button class="rock" name="choice" value="rock" onclick="handleClick(this)">Rock</button>
+                <button class="paper" name="choice" value="paper" onclick="handleClick(this)">Paper</button>
+                <button class="scissors" name="choice" value="scissors" onclick="handleClick(this)">Scissors</button>
+            </form>
+
+            <div class="result">
+                ${result}
+            </div>
+
+            <div class="score">
+                <p>Your Score: ${userScore}</p>
+                <p>Computer Score: ${compScore}</p>
+            </div>
+
+            <form action="reset" method="post">
+                <button>Reset Game</button>
+            </form>
+        </div>
+
+    </body>
+</html>
